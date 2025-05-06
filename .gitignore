@@ -1,0 +1,19 @@
+echo "node_modules/
+.expo/
+.expo-shared/
+android/
+ios/
+build/
+dist/
+.bundle/
+__generated__/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+.git/
+*.lock
+.vscode/
+*.zip" > .gitignore

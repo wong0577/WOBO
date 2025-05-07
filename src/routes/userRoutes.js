@@ -1,6 +1,19 @@
+
+const express = require('express');
+const router = express.Router();
+const {
+  register,
+  login,
+  sendOTP,
+  resetPassword,
+  getProfile
+} = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 
-// 添加一个受保护的路由（需登录）
-router.get('/me', protect, (req, res) => {
-  res.json({ user: req.user });
-});
+router.post('/register', register);
+router.post('/login', login);
+router.post('/forget-password', sendOTP);
+router.post('/reset-password', resetPassword);
+router.get('/me', protect, getProfile);
+
+module.exports = router;

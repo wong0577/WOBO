@@ -1,0 +1,34 @@
+name: Deploy to Lightsail via SSH
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Copy files to Lightsail via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.LIGHTSAIL_IP }}
+          username: ${{ secrets.LIGHTSAIL_USER }}
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          source: "."
+          target: "/home/bitnami/wabo-backend"
+
+      - name: Restart app (optional)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.LIGHTSAIL_IP }}
+          username: ${{ secrets.LIGHTSAIL_USER }}
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          script: |
+            timestamp=$(date +%Y%m%d-%H%M)
+            cp -r /home/bitnami/wabo-backend /home/bitnami/wabo-backend-backup-$timestamp
+            cd /home/bitnami/wabo-backend
+            pm2 restart all || pm2 start app.js 

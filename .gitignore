@@ -1,19 +1,47 @@
-echo "node_modules/
-.expo/
-.expo-shared/
-android/
-ios/
-build/
-dist/
-.bundle/
-__generated__/
-coverage/
+# Node.js dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# AWS and SSH secrets
+*.pem
+
+# Logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific
 .DS_Store
 Thumbs.db
-.env
-.env.*
-.git/
-*.lock
+
+# Editor folders
 .vscode/
-*.zip" > .gitignore
+.idea/
+
+# Compiled output / builds
+dist/
+build/
+coverage/
+
+# Backup / temp
+*.bak
+
+# Docker-related
+.dockerignore
+Dockerfile
+
+# Ignore lock file if using only one package manager
+# package-lock.json
+# yarn.lock
+
+# Ignore optional local databases
+*.sqlite
+
+# Ignore uploads (if applicable)
+uploads/
